@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS `employee_with_address_tab`;
 
-CREATE TABLE `employee_with_address`
+CREATE TABLE `employee_with_address_tab`
 (
     `id`          int(5) NOT NULL AUTO_INCREMENT,
     `first_name`  varchar(20) DEFAULT NULL,
