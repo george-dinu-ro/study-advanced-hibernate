@@ -1,0 +1,17 @@
+services:
+  mysql:
+    image: mysql:8.4.10
+    container_name: mysql-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root-password
+      MYSQL_DATABASE: my-db
+      MYSQL_USER: my-user
+      MYSQL_PASSWORD: my-password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
