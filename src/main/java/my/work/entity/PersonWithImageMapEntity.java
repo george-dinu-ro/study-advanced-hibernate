@@ -17,8 +17,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Entity
 @Table(name = "person_with_image_map_tab")
@@ -46,6 +46,6 @@ public class PersonWithImageMapEntity {
     @CollectionTable(name = "image_map_tab", joinColumns = @JoinColumn(name = "person_id"))
     @MapKeyColumn(name = "file_name")
     @Column(name = "file_description")
-    private List<String> images = new ArrayList<>();
+    private Map<String, String> images = new HashMap<>();
 
 }
