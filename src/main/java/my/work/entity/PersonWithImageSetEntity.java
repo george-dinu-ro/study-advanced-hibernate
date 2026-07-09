@@ -20,14 +20,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "person_tab")
+@Table(name = "person_with_image_set_tab")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Getter
 @Setter
 @ToString
-public class Person {
+public class PersonWithImageSetEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +42,7 @@ public class Person {
     private String email;
 
     @ElementCollection
-    @CollectionTable(name = "image_tab", joinColumns = @JoinColumn(name = "person_id"))
+    @CollectionTable(name = "image_set_tab", joinColumns = @JoinColumn(name = "person_id"))
     @Column(name = "file_name")
     private Set<String> images = new HashSet<>();
 
