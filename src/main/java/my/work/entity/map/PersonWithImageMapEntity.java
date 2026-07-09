@@ -1,4 +1,4 @@
-package my.work.entity;
+package my.work.entity.map;
 
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.MapKeyColumn;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,18 +17,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 @Entity
-@Table(name = "person_with_image_set_tab")
+@Table(name = "person_with_image_map_tab")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Getter
 @Setter
 @ToString
-public class PersonWithImageSetEntity {
+public class PersonWithImageMapEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,8 +43,9 @@ public class PersonWithImageSetEntity {
     private String email;
 
     @ElementCollection
-    @CollectionTable(name = "image_set_tab", joinColumns = @JoinColumn(name = "person_id"))
-    @Column(name = "file_name")
-    private Set<String> images = new HashSet<>();
+    @CollectionTable(name = "image_map_tab", joinColumns = @JoinColumn(name = "person_id"))
+    @MapKeyColumn(name = "file_name")
+    @Column(name = "file_description")
+    private Map<String, String> images = new HashMap<>();
 
 }

@@ -1,4 +1,4 @@
-package my.work.entity;
+package my.work.entity.set;
 
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -8,7 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapKeyColumn;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,29 +16,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.SortComparator;
 
-import java.util.Comparator;
-import java.util.SortedMap;
-import java.util.TreeMap;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "person_with_image_map_tab")
+@Table(name = "person_with_image_set_tab")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Getter
 @Setter
 @ToString
-public class PersonWithImageCustomSortedMapEntity {
-
-    public static class DescStringComparator implements Comparator<String> {
-
-        @Override
-        public int compare(String o1, String o2) {
-            return o2.compareTo(o1);
-        }
-    }
+public class PersonWithImageSortedSetEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,10 +43,9 @@ public class PersonWithImageCustomSortedMapEntity {
     private String email;
 
     @ElementCollection
-    @CollectionTable(name = "image_map_tab", joinColumns = @JoinColumn(name = "person_id"))
-    @MapKeyColumn(name = "file_name")
-    @Column(name = "file_description")
-    @SortComparator(DescStringComparator.class)
-    private SortedMap<String, String> images = new TreeMap<>();
+    @CollectionTable(name = "image_set_tab", joinColumns = @JoinColumn(name = "person_id"))
+    @Column(name = "file_name")
+    @OrderBy("file_name desc")
+    private Set<String> images = new LinkedHashSet<>();
 
 }

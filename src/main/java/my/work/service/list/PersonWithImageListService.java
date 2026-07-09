@@ -1,7 +1,7 @@
-package my.work.service;
+package my.work.service.list;
 
 import lombok.extern.slf4j.Slf4j;
-import my.work.entity.PersonWithImageListEntity;
+import my.work.entity.list.PersonWithImageListEntity;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 

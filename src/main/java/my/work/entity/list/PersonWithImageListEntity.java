@@ -1,4 +1,4 @@
-package my.work.entity;
+package my.work.entity.list;
 
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
@@ -8,8 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapKeyColumn;
-import jakarta.persistence.OrderBy;
+import jakarta.persistence.OrderColumn;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,18 +17,18 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "person_with_image_map_tab")
+@Table(name = "person_with_image_list_tab")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Getter
 @Setter
 @ToString
-public class PersonWithImageSortedMapEntity {
+public class PersonWithImageListEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,10 +43,9 @@ public class PersonWithImageSortedMapEntity {
     private String email;
 
     @ElementCollection
-    @CollectionTable(name = "image_map_tab", joinColumns = @JoinColumn(name = "person_id"))
-    @MapKeyColumn(name = "file_name")
-    @Column(name = "file_description")
-    @OrderBy("file_name desc")
-    private Map<String, String> images = new LinkedHashMap<>();
+    @CollectionTable(name = "image_list_tab", joinColumns = @JoinColumn(name = "person_id"))
+    @OrderColumn(name = "file_order")
+    @Column(name = "file_name")
+    private List<String> images = new ArrayList<>();
 
 }

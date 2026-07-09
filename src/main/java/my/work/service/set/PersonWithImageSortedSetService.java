@@ -1,15 +1,14 @@
-package my.work.service;
+package my.work.service.set;
 
 import lombok.extern.slf4j.Slf4j;
-import my.work.entity.PersonWithImageSortedMapEntity;
+import my.work.entity.set.PersonWithImageSortedSetEntity;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import java.util.Map;
 import java.util.Set;
 
 @Slf4j
-public class PersonWithImageSortedMapService {
+public class PersonWithImageSortedSetService {
 
     static void main() {
         try (var sessionFactory = getSessionFactory()) {
@@ -23,9 +22,9 @@ public class PersonWithImageSortedMapService {
 
             session.beginTransaction();
 
-            getPersons().forEach(person -> {
-                session.persist(person);
-                log.info("Save person {} {}", person.getFirstName(), person.getLastName());
+            getPersons().forEach(personWithImageSetEntity -> {
+                session.persist(personWithImageSetEntity);
+                log.info("Save person {} {}", personWithImageSetEntity.getFirstName(), personWithImageSetEntity.getLastName());
             });
 
             session.getTransaction().commit();
@@ -38,7 +37,7 @@ public class PersonWithImageSortedMapService {
             session.beginTransaction();
 
             var person = session
-                    .createNativeQuery("SELECT * FROM person_with_image_map_tab ORDER BY id DESC LIMIT 1", PersonWithImageSortedMapEntity.class)
+                    .createNativeQuery("SELECT * FROM person_with_image_set_tab ORDER BY id DESC LIMIT 1", PersonWithImageSortedSetEntity.class)
                     .getSingleResult();
 
             log.info("Load person {}", person);
@@ -50,21 +49,17 @@ public class PersonWithImageSortedMapService {
     private static SessionFactory getSessionFactory() {
         return new Configuration()
                 .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(PersonWithImageSortedMapEntity.class)
+                .addAnnotatedClass(PersonWithImageSortedSetEntity.class)
                 .buildSessionFactory();
     }
 
-    private static Set<PersonWithImageSortedMapEntity> getPersons() {
+    private static Set<PersonWithImageSortedSetEntity> getPersons() {
         return Set.of(
-                PersonWithImageSortedMapEntity.builder()
+                PersonWithImageSortedSetEntity.builder()
                         .firstName("John")
                         .lastName("Doe")
                         .email("johndoe@email.com")
-                        .images(
-                                Map.of(
-                                        "img1.jpg", "Image 1",
-                                        "img2.jpg", "Image 2",
-                                        "img3.jpg", "Image 3"))
+                        .images(Set.of("img1.jpg", "img2.jpg", "img3.jpg"))
                         .build());
     }
 

@@ -1,14 +1,15 @@
-package my.work.service;
+package my.work.service.map;
 
 import lombok.extern.slf4j.Slf4j;
-import my.work.entity.PersonWithImageSetEntity;
+import my.work.entity.map.PersonWithImageMapEntity;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.util.Map;
 import java.util.Set;
 
 @Slf4j
-public class PersonWithImageSetService {
+public class PersonWithImageMapService {
 
     static void main() {
         try (
@@ -17,10 +18,11 @@ public class PersonWithImageSetService {
         ) {
             session.beginTransaction();
 
-            getPersons().forEach(personWithImageSetEntity -> {
-                session.persist(personWithImageSetEntity);
-                log.info("Save person {} {}", personWithImageSetEntity.getFirstName(), personWithImageSetEntity.getLastName());
-            });
+            getPersons()
+                    .forEach(person -> {
+                        session.persist(person);
+                        log.info("Save person {} {}", person.getFirstName(), person.getLastName());
+                    });
 
             session.getTransaction().commit();
         }
@@ -29,17 +31,20 @@ public class PersonWithImageSetService {
     private static SessionFactory getSessionFactory() {
         return new Configuration()
                 .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(PersonWithImageSetEntity.class)
+                .addAnnotatedClass(PersonWithImageMapEntity.class)
                 .buildSessionFactory();
     }
 
-    private static Set<PersonWithImageSetEntity> getPersons() {
+    private static Set<PersonWithImageMapEntity> getPersons() {
         return Set.of(
-                PersonWithImageSetEntity.builder()
+                PersonWithImageMapEntity.builder()
                         .firstName("John")
                         .lastName("Doe")
                         .email("johndoe@email.com")
-                        .images(Set.of("img1.jpg", "img2.jpg", "img3.jpg"))
+                        .images(Map.of(
+                                "img1.jpg", "Image 1",
+                                "img2.jpg", "Image 2",
+                                "img3.jpg", "Image 3"))
                         .build());
     }
 

@@ -1,16 +1,15 @@
-package my.work.service;
+package my.work.service.map;
 
 import lombok.extern.slf4j.Slf4j;
-import my.work.entity.PersonWithImageCustomSortedMapEntity;
+import my.work.entity.map.PersonWithImageSortedMapEntity;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 
 @Slf4j
-public class PersonWithImageCustomSortedMapService {
+public class PersonWithImageSortedMapService {
 
     static void main() {
         try (var sessionFactory = getSessionFactory()) {
@@ -39,7 +38,7 @@ public class PersonWithImageCustomSortedMapService {
             session.beginTransaction();
 
             var person = session
-                    .createNativeQuery("SELECT * FROM person_with_image_map_tab ORDER BY id DESC LIMIT 1", PersonWithImageCustomSortedMapEntity.class)
+                    .createNativeQuery("SELECT * FROM person_with_image_map_tab ORDER BY id DESC LIMIT 1", PersonWithImageSortedMapEntity.class)
                     .getSingleResult();
 
             log.info("Load person {}", person);
@@ -51,22 +50,21 @@ public class PersonWithImageCustomSortedMapService {
     private static SessionFactory getSessionFactory() {
         return new Configuration()
                 .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(PersonWithImageCustomSortedMapEntity.class)
+                .addAnnotatedClass(PersonWithImageSortedMapEntity.class)
                 .buildSessionFactory();
     }
 
-    private static Set<PersonWithImageCustomSortedMapEntity> getPersons() {
+    private static Set<PersonWithImageSortedMapEntity> getPersons() {
         return Set.of(
-                PersonWithImageCustomSortedMapEntity.builder()
+                PersonWithImageSortedMapEntity.builder()
                         .firstName("John")
                         .lastName("Doe")
                         .email("johndoe@email.com")
                         .images(
-                                new TreeMap<>(
-                                        Map.of(
-                                                "img1.jpg", "Image 1",
-                                                "img2.jpg", "Image 2",
-                                                "img3.jpg", "Image 3")))
+                                Map.of(
+                                        "img1.jpg", "Image 1",
+                                        "img2.jpg", "Image 2",
+                                        "img3.jpg", "Image 3"))
                         .build());
     }
 
