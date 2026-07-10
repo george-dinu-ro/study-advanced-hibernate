@@ -1,16 +1,16 @@
-package my.work.service.inheritance.single.table;
+package my.work.service.inheritance.table.per.clasz;
 
 import lombok.extern.slf4j.Slf4j;
-import my.work.entity.inheritance.single.table.StCarEntity;
-import my.work.entity.inheritance.single.table.StTruckEntity;
-import my.work.entity.inheritance.single.table.StVehicleEntity;
+import my.work.entity.inheritance.table.per.clasz.TpcCarEntity;
+import my.work.entity.inheritance.table.per.clasz.TpcTruckEntity;
+import my.work.entity.inheritance.table.per.clasz.TpcVehicleEntity;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import java.util.Set;
 
 @Slf4j
-public class SingleTableInheritanceService {
+public class TablePerClassInheritanceService {
 
     static void main() {
         try (
@@ -32,19 +32,18 @@ public class SingleTableInheritanceService {
     private static SessionFactory getSessionFactory() {
         return new Configuration()
                 .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(StVehicleEntity.class)
-                .addAnnotatedClass(StCarEntity.class)
-                .addAnnotatedClass(StTruckEntity.class)
+                .addAnnotatedClass(TpcCarEntity.class)
+                .addAnnotatedClass(TpcTruckEntity.class)
                 .buildSessionFactory();
     }
 
-    private static Set<StVehicleEntity> getVehicles() {
+    private static Set<TpcVehicleEntity> getVehicles() {
         return Set.of(
-                StCarEntity.builder()
+                TpcCarEntity.builder()
                         .fuel("GASOLINE")
                         .maxSpeed(220)
                         .build(),
-                StTruckEntity.builder()
+                TpcTruckEntity.builder()
                         .fuel("DIESEL")
                         .maxLoad(5000)
                         .build());
