@@ -19,14 +19,14 @@ import lombok.experimental.SuperBuilder;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "vehicle_type", discriminatorType = DiscriminatorType.STRING)
-@Table(name = "single_table_inheritance_tab")
+@Table(name = "st_vehicle_tab")
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
 @Getter
 @Setter
 @ToString
-public abstract class VehicleEntity {
+public abstract class StVehicleEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

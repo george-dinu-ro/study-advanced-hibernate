@@ -1,9 +1,9 @@
 package my.work.service.inheritance.single.table;
 
 import lombok.extern.slf4j.Slf4j;
-import my.work.entity.inheritance.single.table.CarEntity;
-import my.work.entity.inheritance.single.table.TruckEntity;
-import my.work.entity.inheritance.single.table.VehicleEntity;
+import my.work.entity.inheritance.single.table.StCarEntity;
+import my.work.entity.inheritance.single.table.StTruckEntity;
+import my.work.entity.inheritance.single.table.StVehicleEntity;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -32,19 +32,19 @@ public class SingleTableInheritanceService {
     private static SessionFactory getSessionFactory() {
         return new Configuration()
                 .configure("hibernate.cfg.xml")
-                .addAnnotatedClass(VehicleEntity.class)
-                .addAnnotatedClass(CarEntity.class)
-                .addAnnotatedClass(TruckEntity.class)
+                .addAnnotatedClass(StVehicleEntity.class)
+                .addAnnotatedClass(StCarEntity.class)
+                .addAnnotatedClass(StTruckEntity.class)
                 .buildSessionFactory();
     }
 
-    private static Set<VehicleEntity> getEmployees() {
+    private static Set<StVehicleEntity> getEmployees() {
         return Set.of(
-                CarEntity.builder()
+                StCarEntity.builder()
                         .fuel("GASOLINE")
                         .maxSpeed(220)
                         .build(),
-                TruckEntity.builder()
+                StTruckEntity.builder()
                         .fuel("DIESEL")
                         .maxLoad(5000)
                         .build());

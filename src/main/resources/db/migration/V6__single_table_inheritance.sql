@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS `single_table_inheritance_tab`;
+DROP TABLE IF EXISTS `st_vehicle_tab`;
 
-CREATE TABLE `single_table_inheritance_tab`
+CREATE TABLE `st_vehicle_tab`
 (
     `id`           int(5) NOT NULL AUTO_INCREMENT,
     `vehicle_type` varchar(20) DEFAULT NULL,

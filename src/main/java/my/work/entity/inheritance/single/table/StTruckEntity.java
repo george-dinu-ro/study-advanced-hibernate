@@ -18,7 +18,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 @ToString
-public class TruckEntity extends VehicleEntity {
+public class StTruckEntity extends StVehicleEntity {
 
     @Column(name = "max_load")
     private int maxLoad;
